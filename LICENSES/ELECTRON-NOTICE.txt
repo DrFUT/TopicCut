@@ -1,0 +1,15 @@
+TopicCut — Electron 运行时说明
+================================================
+
+安装包的主体运行时是 Electron 33.4.11（Chromium + Node.js）。
+
+  Electron 许可证：MIT（Copyright (c) Electron contributors; Copyright (c) 2013-2020 GitHub Inc.）
+  原文随包位置：安装目录 resources/LICENSE（构建时由 electron-builder 从 electron 发行包复制）
+  Chromium 及其第三方组件的完整许可清单：安装目录 resources/LICENSES.chromium.html
+  Node.js 及其第三方组件：同目录内 V8 / OpenSSL / ICU 等声明包含在上面的清单中
+
+TopicCut 自身代码（含 electron/ 主进程与 src/ 渲染层）为 MIT，见仓库根目录 LICENSE。
+构建期依赖（vite / react / typescript / tailwind 等）被打进前端产物或不随包分发，
+其许可清单见同目录 THIRD_PARTY_NOTICES.md。
+
+本文件与清单不声称「所有组件均为 MIT」：随包的 FFmpeg 为 GPL-3，详见 FFMPEG-NOTICE.txt。

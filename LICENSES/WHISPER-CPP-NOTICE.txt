@@ -1,0 +1,30 @@
+TopicCut — whisper.cpp 随包分发说明
+================================================
+
+随包分发的文件（位于 resources/runtime/whisper/）：
+
+  whisper-cli.exe   479,744 B
+  whisper.dll     1,370,112 B
+  ggml.dll           62,464 B
+  ggml-base.dll     693,248 B
+  ggml-cpu-*.dll    9 个运行时 CPU 分派后端（约 9.1 MB）
+  合计约 12 MB
+
+来源与版本
+  whisper.cpp 官方 Windows 预编译包（whisper-bin-x64.zip），
+  自报版本：whisper.cpp version: 1.9.5
+  上游项目：https://github.com/ggerganov/whisper.cpp （ggml.ai）
+
+许可证
+  上游项目采用 MIT 许可证。
+  注意：本安装包所用的是**仅含二进制的 release zip，其中不含 LICENSE 文件**，
+  而本次打包环境无法访问网络核对原文，因此此处**未逐字复制上游 MIT 许可正文**。
+  公开发布前必须从上游仓库取回 LICENSE 原文并放入本目录，否则不满足 MIT 的
+  「副本中须包含版权声明与许可声明」要求。此项已记入 README 已知限制。
+
+未随包分发的内容
+  - 模型文件（ggml-tiny/base/small/medium.bin）：**不包含**。单个模型 75 MB ~ 1.5 GB，
+    体积决定了它不能进安装包；应用只探测与指引，不自动下载。
+  - llama.dll、parakeet.dll、SDL2.dll、whisper-server.exe、whisper-stream.exe、
+    test-*.exe、bench/command/main 等其他可执行文件：均未被 TopicCut 使用，
+    因此**不随包分发**（同时也就避免了为它们处理额外许可）。

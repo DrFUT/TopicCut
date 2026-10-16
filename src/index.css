@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-ink text-slate-200 antialiased;
+  font-family: 'Inter', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.04] px-5 py-2 text-[13px] tracking-wide text-slate-100 transition;
+}
+.btn:hover:not(:disabled) {
+  @apply border-white/25 bg-white/[0.09];
+}
+.btn:disabled {
+  @apply cursor-not-allowed opacity-35;
+}
+.btn-primary {
+  @apply border-amber-200/[0.35] bg-amber-100/[0.13] text-amber-50;
+}
+.btn-primary:hover:not(:disabled) {
+  @apply border-amber-200/[0.55] bg-amber-100/20;
+}
+
+.field {
+  @apply w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-[13px] text-slate-200 outline-none transition placeholder:text-slate-600 focus:border-white/25;
+}
+
+.label {
+  @apply text-[10px] font-medium uppercase tracking-[0.28em] text-slate-500;
+}
+
+.panel {
+  @apply rounded-xl border border-white/[0.07] bg-white/[0.015];
+}
+
+.clip-card {
+  @apply rounded-xl border border-white/[0.07] bg-white/[0.02] px-6 py-5 transition;
+}
+.clip-card:hover {
+  @apply border-white/[0.15] bg-white/[0.04];
+}
+.clip-card.is-active {
+  @apply border-amber-200/30 bg-amber-100/[0.045];
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-white/10;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}

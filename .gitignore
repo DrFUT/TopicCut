@@ -1,0 +1,39 @@
+# 依赖与构建产物
+node_modules
+dist
+release
+*.tsbuildinfo
+
+# 本地自检产物：截图、测试用假密钥配置、临时视频/音频
+.selfcheck
+*.log
+
+# 打包素材（whisper.cpp 解压目录、ffmpeg 二进制），克隆后按 README 自行准备
+tools
+
+# 环境变量与凭据
+.env
+.env.*
+*.pem
+*.p12
+*.key
+id_rsa*
+*credentials*
+
+# 模型与二进制大文件（模型一律不入库，见 README §9.4）
+ggml-*.bin
+*.ggml
+
+# 本地数据与媒体（用户导入的账单/视频/字幕不入库）
+*.sqlite
+*.db
+*.mp4
+*.mkv
+*.mov
+*.wav
+*.aac
+
+# 系统杂项
+.DS_Store
+Thumbs.db
+desktop.ini

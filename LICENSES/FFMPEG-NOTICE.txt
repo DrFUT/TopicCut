@@ -1,0 +1,39 @@
+TopicCut — FFmpeg 随包分发说明与源码要约
+================================================
+
+本安装包内随包分发的可执行文件：
+
+  resources/runtime/ffmpeg/ffmpeg.exe
+  版本：6.1.1-essentials_build-www.gyan.dev
+  来源：BtbN / Gyan Doshi 为 Windows 发布的静态构建（www.gyan.dev/ffmpeg/builds）
+  许可证：GNU GENERAL PUBLIC LICENSE version 3（见同目录 FFMPEG-GPL-3.0.txt 全文）
+  构建配置：见 FFMPEG-BUILD-CONFIG.txt（含 --enable-gpl --enable-version3 等全部选项）
+
+一、许可状态（重要）
+
+TopicCut 自身源码为 MIT（见仓库根目录 LICENSE）。
+但随包分发的 FFmpeg 二进制是 GPL-3 许可，因此**本安装包整体作为分发作品时，
+FFmpeg 部分继续受 GPL-3 约束**；不得把安装包内所有组件声称为 MIT。
+
+二、对应源码的书面要约（GPL-3 第 6 条 b 项）
+
+任何人在收到本安装包之日起三年内，可通过以下方式获得 FFmpeg 的完整对应源码：
+
+  1. 官方构建与源码指引：https://www.gyan.dev/ffmpeg/builds/
+  2. 本包所用构建对应的 FFmpeg 源码提交点（来自上游构建元数据）：
+     https://github.com/FFmpeg/FFmpeg/commit/e38092ef93
+  3. FFmpeg 项目源码主仓库：https://git.ffmpeg.org/ffmpeg.html
+  4. 若上述公开途径不可用，可通过 TopicCut 项目公开的联系渠道索取，
+     我们承诺在三年内应请求以物理介质成本价提供完整机器可读源码。
+
+三、未随包分发的内容
+
+  - ffprobe.exe / ffplay.exe：未包含。TopicCut 在缺少 ffprobe 时代码会回退到
+    `ffmpeg -hide_banner -i` 的输出解析；该回退是否在打包环境成立，见 README
+    「Windows 安装与发布」一节的实测记录。
+  - FFmpeg 的 DLL：未包含（该构建为静态链接）。
+
+四、TopicCut 与 FFmpeg 的关系
+
+TopicCut 通过子进程调用 ffmpeg.exe 完成音频抽取与片段导出，两者是相互独立的程序，
+TopicCut 不链接、不修改 FFmpeg 代码，也不向其传递 GPL 衍生代码。

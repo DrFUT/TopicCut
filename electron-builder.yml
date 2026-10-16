@@ -1,0 +1,71 @@
+# TopicCut Windows 打包配置
+# 依据实际代码确定：主进程 electron/main.cjs、前端产物 dist/、随包二进制走 extraResources。
+# 不使用模板默认值：files 精确白名单，确保 samples/.selfcheck/docs/scripts 不进安装包。
+
+appId: com.topiccut.desktop
+productName: TopicCut
+copyright: 'Copyright © 2026 TopicCut contributors'
+
+directories:
+  output: release
+  buildResources: build
+
+# 离线复用本机已安装的 electron 发行包，避免构建期再从网络拉取约 100 MB
+electronDist: node_modules/electron/dist
+# 无原生模块需要重建
+npmRebuild: false
+
+asar: true
+
+files:
+  - 'dist/**/*'
+  - 'electron/**/*'
+  - 'package.json'
+  - 'LICENSE'
+
+extraResources:
+  # 导出与音频抽取用的 FFmpeg（gyan.dev 6.1.1 essentials 静态构建，GPL-3，见 LICENSES/）
+  - from: node_modules/ffmpeg-static/ffmpeg.exe
+    to: runtime/ffmpeg/ffmpeg.exe
+  # 本地字幕转写：只带 whisper-cli 与其真实依赖的 DLL，模型不随包
+  - from: tools/whisper/unpacked/Release
+    to: runtime/whisper
+    filter:
+      - whisper-cli.exe
+      - whisper.dll
+      - ggml.dll
+      - ggml-base.dll
+      - ggml-cpu-*.dll
+  # 第三方许可与源码要约，安装后可在应用目录里直接查看
+  - from: LICENSES
+    to: LICENSES
+
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+  requestedExecutionLevel: asInvoker
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: TopicCut
+  # 卸载不得清除用户设置；媒体文件与外部字幕本来就在应用目录之外
+  deleteAppDataOnUninstall: false
+  artifactName: 'TopicCut-Setup-${version}.${ext}'
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+
+portable:
+  artifactName: 'TopicCut-Portable-${version}.${ext}'
+
+publish: null
