@@ -175,7 +175,7 @@ topiccut/
 
 ### 档位怎么选（本机实测，非官方数字）
 
-同一段 **3 分钟真实中文电影音频**（`魔方小姐` 4K HEVC/AAC，国语对白），`whisper-cli -t 4`：
+同一段 **3 分钟真实中文电影音频**（本地文件名 `sample-movie.mp4`，4K HEVC/AAC，国语对白），`whisper-cli -t 4`：
 
 | 档位 | 文件 | 3 分钟音频耗时 | 相对实时 | 中文观感（同一句"你就是我的大救星"） |
 |---|---|---|---|---|
@@ -210,12 +210,12 @@ npm run verify:real-asr    # 真实 whisper.cpp 端到端：转写 → 检索 �
 #### 真实端到端（本机实测，2026-10-14）
 
 环境：whisper.cpp **1.9.5**（预编译包，无编译）· `ggml-small.bin` · `ffmpeg 6.1.1` · 4 线程 · CPU 推理。
-素材：`魔方小姐.It's.My.Time.2026` 正片 **25:00–35:00 的真实切片**（`-c copy`，240.5 MB，600.42 s，国语对白，无字幕、无内嵌字幕轨）。
+素材：一段真实电影正片 **25:00–35:00 的切片**（本地名 `sample-movie.mp4`，`-c copy`，240.5 MB，600.42 s，国语对白，无字幕、无内嵌字幕轨）。
 
 ```
 $ npm run verify:real-asr
 --- 0. 环境与素材
-视频 魔方小姐.It's.My.Time.sample.mp4 · 240.5 MB
+视频 sample-movie.mp4 · 240.5 MB
 FFmpeg D:\zcode-homework\topiccut\node_modules\ffmpeg-static\ffmpeg.exe
 whisper-cli C:\Users\<用户名>\AppData\Local\Programs\whisper.cpp\whisper-cli.exe
      whisper.cpp version: 1.9.5
@@ -226,7 +226,7 @@ FLOW_PASS E ggml 模型已被自动发现 → true
 FLOW_PASS E 真实视频无字幕 → false
 FLOW_PASS E 有音轨，AI 入口可用 → true
 FLOW_PASS E 点击「生成 AI 字幕」生效 → true
-FLOW_PASS E 生成字幕文件名为 <视频名>.generated.srt → "魔方小姐.It's.My.Time.sample.generated.srt"
+FLOW_PASS E 生成字幕文件名为 <视频名>.generated.srt → "sample-movie.generated.srt"
 FLOW_PASS E 来源标记为 AI 生成 → "ai"
 FLOW_PASS E 字幕非空 → true
 FLOW_PASS E 进度单调递增且采样点充足 → true        # 2124 次采样
@@ -241,7 +241,7 @@ FLOW_INFO E 片段 357.6s→600.4s 导出 242.82s（偏差 0.00s）/ 96.98 MB
 结果：27 通过 / 0 失败（截图 .selfcheck/realasr.png）
 ```
 
-> 摘录里的 Windows 用户名已替换为 `<用户名>`，其余输出保持原样；`.selfcheck/` 是本地自检产物目录，不随仓库分发。
+> 摘录里的 Windows 用户名已替换为 `<用户名>`；素材是本地真实切片，不入库（`.selfcheck/` 已被 `.gitignore` 排除），公开文档里统一写作 `sample-movie.mp4`，其余输出保持原样。
 
 **记录**
 
@@ -563,7 +563,7 @@ npm i -D ffmpeg-static         # 本机没有管理员权限时的开发回退�
 | 项 | 状态 |
 |---|---|
 | 版本号 | `package.json` `version: 1.5.0`，`productName: TopicCut`，`author: TopicCut contributors`（安装程序的 Publisher / EXE 的 CompanyName 由它派生） |
-| 许可证 | 仓库根 `LICENSE`（MIT，"Copyright (c) 2026 TopicCut contributors"）与 `package.json` 的 `license: "MIT"` 一致；随包分发 `resources/LICENSES/`（FFmpeg GPL-3 全文 + 构建溯源 + Whisper / Electron 声明），见 §9 |
+| 许可证 | 仓库根 `LICENSE`（MIT，"Copyright (c) 2026 TopicCut contributors"）与 `package.json` 的 `license: "MIT"` 一致；随包分发 `resources/LICENSES/`（FFmpeg GPL-3 全文 + 构建溯源 + 源码要约、Whisper/ggml MIT 全文、Electron / 第三方清单），见 §9 |
 | `.gitignore` | `node_modules` / `dist` / `.selfcheck` / `release` / `tools` / `*.log` / `.DS_Store` —— 自检产物与打包中间件（含测试用的假密钥配置、素材视频、截图）不会进版本库 |
 | 密钥 | 源码与测试脚本里没有任何真实密钥；`verify:ai` 用的是硬编码假密钥 `sk-topiccut-mock-key-9f2c`，且只写进 `.selfcheck/userdata-ai/`（已 gitignore）。安装包内容做过逐字节扫描，见 §9 的"发布物隐私扫描" |
 | 截图 | `docs/` 7 张，全部由 `capturePage()` 在无显示器的真实渲染结果里抓，随本轮验证重新生成；发布前逐张人工核验过画面内容（无密钥、无个人路径） |
@@ -605,7 +605,7 @@ npm i -D ffmpeg-static         # 本机没有管理员权限时的开发回退�
 | `app.asar`（5.0 MB） | `dist/`（前端产物）+ `electron/`（主进程与服务）+ `LICENSE` + `package.json` + 生产 `node_modules` | asar 打包、`asar integrity` 已写入 EXE |
 | `runtime/ffmpeg/ffmpeg.exe` | 82,797,568 B，gyan.dev `6.1.1-essentials_build` | **只带 ffmpeg.exe**：代码里 ffprobe 是可选的，`probe()` 在缺 ffprobe 时回退解析 `ffmpeg -i` 的 `Duration:` 行（本轮在安装环境实测回退可用）；ffplay 无人调用 |
 | `runtime/whisper/` | 13 个文件、11.06 MB：`whisper-cli.exe` + `whisper.dll` + `ggml.dll` + `ggml-base.dll` + 9 个 `ggml-cpu-*.dll` | whisper.cpp 1.9.5 预编译包的最小子集（按真实依赖实测挑的，未用的 CUDA/Vulkan/Metal 后端与 `whisper-server.exe` 等没进包）。**模型不随包**，见 9.4 |
-| `LICENSES/` | 6 个文件 | 见 9.6 |
+| `LICENSES/` | 7 个文件 | 见 9.6 |
 
 运行时发现逻辑没有变（仍是 §3 那套候选路径 + 真实执行 `-version` / `--help` 判定），只加了一条：`process.resourcesPath` 存在时优先看 `resources/runtime/…`。因此**开发态与安装态用的是同一段发现代码**，安装版不依赖任何开发机绝对路径。
 
@@ -637,7 +637,7 @@ npm i -D ffmpeg-static         # 本机没有管理员权限时的开发回退�
 |---|---|---|
 | TopicCut 自有代码 | MIT | `LICENSE`（仓库根，也在 asar 内） |
 | FFmpeg `6.1.1-essentials_build` | **GPL-3.0**（该构建 `--enable-gpl --enable-version3`） | `FFMPEG-GPL-3.0.txt`（GPLv3 全文）、`FFMPEG-BUILD-CONFIG.txt`（上游 `ffmpeg -buildconf`/版本溯源，含源码 commit `e38092ef93`）、`FFMPEG-NOTICE.txt`（版本、构建来源、3 年内提供源码的书面要约） |
-| whisper.cpp 1.9.5 二进制 | 上游为 MIT，但**该 release 压缩包内没有 LICENSE 文件**，离线构建环境取不到原文 | `WHISPER-CPP-NOTICE.txt`：列明 13 个文件、版本、未包含模型，并**显式声明 MIT 原文尚未随包**，公开发布前必须补 |
+| whisper.cpp 1.9.5 二进制 | 上游为 MIT（该 release 压缩包里不含 LICENSE 文件） | `WHISPER-CPP-NOTICE.txt`：列明 13 个文件、版本、未包含模型；`WHISPER-CPP-MIT.txt`：按上游 LICENSE 收录的 MIT 正文（含 ggml 一段），已随包分发 |
 | Electron 33.4.11 / Chromium | MIT（Electron）+ Chromium BSD 系 | Electron 自带的 `LICENSE.electron.txt`、`LICENSES.chromium.html` + `ELECTRON-NOTICE.txt` |
 | React 18 / Vite / Tailwind 等 | MIT | `THIRD_PARTY_NOTICES.md` 汇总表（按实际分发内容列，不声称全部组件为 MIT） |
 
@@ -655,11 +655,11 @@ npm i -D ffmpeg-static         # 本机没有管理员权限时的开发回退�
 
 **E. 发布物隐私扫描**：以用户真实配置里的凭据字段逐字节比对 `app.asar` 与 `win-unpacked` 自有文件，**凭据命中 0**；开发机绝对路径（仓库目录、Windows 用户目录）与本地测试素材名命中 0。余下 3 处命中是源码里的固定字符串（配置文件名 `topiccut-settings.json`、自检开关 `selfcheck=1` / `TOPICCUT_DEMO`），属代码而非常量数据，且 B 组已证明运行时不激活。
 
-**F. 回归全绿**：`npm run check`（全部断言通过）、`typecheck`（0 error）、`verify:export`（时长偏差 0.02 s）、`verify:subtitles`、`verify:flow` 13/13、`verify:ai` 78/78（mock 接口）。
+**F. 回归全绿**：`npm run check`（全部断言通过）、`npx tsc --noEmit`（0 error；仓库未定义 `typecheck` 脚本，故直接调 tsc）、`verify:export`（时长偏差 0.02 s）、`verify:subtitles`、`verify:flow` 13/13、`verify:ai` 78/78（mock 接口）。
 
 **G. 环境受限，未算通过**：
 - 「在安装版里点『导入视频』/『导出片段』走完原生文件对话框」这一步**无法在本机自动化环境完成** —— 会话里 `dialog.showOpenDialog` / `showSaveDialog` 不弹出（同一脚本对开发版实例做对照，行为一致，故判定为环境限制而非打包回归）。素材导入与导出改用 A 组的随包代码 + 安装目录二进制完成，界面状态由 B 组完成。
-- whisper.cpp 的 MIT 原文与 FFmpeg 完整源码获取需联网，本机构建环境访问 GitHub 受限，已在 9.6 标为公开发布前的待办。
+- FFmpeg 的完整源码包（`ffmpeg-6.1.1.tar.xz`）需联网获取，本机构建环境访问 GitHub 受限，未在本机核验源码树；GPL-3 的书面要约与对应源码定位信息已写入 `FFMPEG-NOTICE.txt`（见 9.6）。whisper.cpp 的 MIT 正文已按上游标准文本收录进 `LICENSES/WHISPER-CPP-MIT.txt`，如需逐字比对上游文件仍要联网。
 
 ### 9.8 开发版与安装版的区别
 
@@ -679,7 +679,7 @@ npm i -D ffmpeg-static         # 本机没有管理员权限时的开发回退�
 1. 未代码签名 → SmartScreen 提示，企业环境可能被策略拦截。
 2. 模型不随包，且不做静默下载（见 9.4）。
 3. 只分发 `ffmpeg.exe`：安装版 `probe()` 走 `ffmpeg -i` 回退分支，拿不到 `bitrate` 等 ffprobe 才有的字段（界面未依赖这些字段）。
-4. whisper.cpp 的 MIT 许可原文待补（9.6）。
+4. whisper.cpp 的 MIT 正文已随包（`LICENSES/WHISPER-CPP-MIT.txt`）；因上游 release zip 不含 LICENSE 文件，正文按上游标准 MIT 文本收录，逐字比对上游文件仍需联网。
 5. FFmpeg 是 GPL-3 构建，若对外分发必须同时提供/要约对应源码（`FFMPEG-NOTICE.txt` 已写入书面要约）。
 
 ---

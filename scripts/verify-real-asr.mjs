@@ -17,7 +17,16 @@ const modelSize = process.env.TOPICCUT_REAL_ASR_MODEL || 'small';
 const language = process.env.TOPICCUT_REAL_ASR_LANG || 'zh';
 
 const videoArg = process.argv[2];
-const defaultClip = path.join(work, 'realtest', '魔方小姐', "魔方小姐.It's.My.Time.sample.mp4");
+// 素材不入库（.selfcheck 已被 .gitignore 排除），这里按目录扫描取第一段真实切片，
+// 跳过导出产物 export-clip-*.mp4，避免把导出结果当成待测输入。
+const realtest = path.join(work, 'realtest');
+const clips = fs.existsSync(realtest)
+  ? fs
+      .readdirSync(realtest, { recursive: true, encoding: 'utf8' })
+      .filter((f) => f.endsWith('.mp4') && !path.basename(f).startsWith('export-clip-'))
+      .sort((a, b) => a.localeCompare(b))
+  : [];
+const defaultClip = clips.length ? path.join(realtest, clips[0]) : path.join(realtest, 'sample.mp4');
 const video = videoArg ? path.resolve(videoArg) : defaultClip;
 
 function die(msg) {

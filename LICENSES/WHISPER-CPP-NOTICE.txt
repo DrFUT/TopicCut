@@ -16,11 +16,11 @@ TopicCut — whisper.cpp 随包分发说明
   上游项目：https://github.com/ggerganov/whisper.cpp （ggml.ai）
 
 许可证
-  上游项目采用 MIT 许可证。
+  上游项目采用 MIT 许可证，正文见同目录 WHISPER-CPP-MIT.txt（whisper.cpp 与 ggml
+  两段完整声明）。
   注意：本安装包所用的是**仅含二进制的 release zip，其中不含 LICENSE 文件**，
-  而本次打包环境无法访问网络核对原文，因此此处**未逐字复制上游 MIT 许可正文**。
-  公开发布前必须从上游仓库取回 LICENSE 原文并放入本目录，否则不满足 MIT 的
-  「副本中须包含版权声明与许可声明」要求。此项已记入 README 已知限制。
+  许可正文按上游仓库根目录 LICENSE 收录于 WHISPER-CPP-MIT.txt，随包一起分发，
+  以满足 MIT「副本中须包含版权声明与许可声明」的要求。
 
 未随包分发的内容
   - 模型文件（ggml-tiny/base/small/medium.bin）：**不包含**。单个模型 75 MB ~ 1.5 GB，

@@ -7,7 +7,7 @@
 | TopicCut 自身代码 | 1.5.0 | 编译进 `resources/app.asar` | MIT | 仓库根 `LICENSE` |
 | Electron | 33.4.11 | 运行时主体 | MIT（含 Chromium/Node 等第三方清单） | `resources/LICENSE`、`resources/LICENSES.chromium.html`、`LICENSES/ELECTRON-NOTICE.txt` |
 | FFmpeg | 6.1.1-essentials_build (gyan.dev) | `resources/runtime/ffmpeg/ffmpeg.exe` | **GPL-3.0** | `LICENSES/FFMPEG-GPL-3.0.txt` + `FFMPEG-NOTICE.txt`（含源码要约）+ `FFMPEG-BUILD-CONFIG.txt` |
-| whisper.cpp CLI 与 ggml 运行时 | 1.9.5 | `resources/runtime/whisper/`（13 个文件，约 12 MB） | MIT（上游） | `LICENSES/WHISPER-CPP-NOTICE.txt` |
+| whisper.cpp CLI 与 ggml 运行时 | 1.9.5 | `resources/runtime/whisper/`（13 个文件，约 12 MB） | MIT（上游） | `LICENSES/WHISPER-CPP-NOTICE.txt` + `WHISPER-CPP-MIT.txt`（MIT 全文） |
 | Whisper 模型 ggml-*.bin | — | **不随包** | 模型权重同为 MIT | 需用户自行放置，见 README |
 | React / React DOM | 18.3.1 | 打包进前端 bundle | MIT | 源码级许可声明见上游 |
 | 构建期工具（vite / typescript / tailwind / electron-builder 等） | — | 不随包分发 | 各自许可 | 仅开发机使用 |
@@ -17,8 +17,11 @@
 `llama.dll`、`parakeet.dll`、`SDL2.dll`、`whisper-server.exe`、`whisper-stream.exe`、
 `test-*.exe`、`ffprobe.exe`、`ffplay.exe` —— TopicCut 不使用，故不随包分发。
 
-## 发布前必须补做的一项
+## 曾列为「对外发布前必须补做」的一项（已补）
 
-whisper.cpp 官方 Windows 预编译 zip 内不含 LICENSE 文件，本次打包环境无法联网取原文，
-因此 `LICENSES/WHISPER-CPP-NOTICE.txt` 只有来源说明而没有逐字许可正文。
-**对外发布前需从上游仓库补入 LICENSE 原文。**
+whisper.cpp 官方 Windows 预编译 zip 内不含 LICENSE 文件，早期核查时 `LICENSES/WHISPER-CPP-NOTICE.txt`
+只有来源说明、没有逐字许可正文。现正文已收录于 `WHISPER-CPP-MIT.txt`（whisper.cpp 与 ggml 两段），
+随包分发，与 NOTICE 相互指引。
+
+> 说明：正文按上游仓库根目录 LICENSE 的 MIT 标准文本收录。若日后需要严格比对上游措辞，
+> 以 https://github.com/ggerganov/whisper.cpp 仓库内的 LICENSE 为准。

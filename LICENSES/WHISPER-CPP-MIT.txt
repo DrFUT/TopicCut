@@ -1,0 +1,63 @@
+whisper.cpp / ggml — MIT License 正文
+================================================
+
+为什么有这个文件
+  TopicCut 安装包内的 whisper-cli.exe / whisper.dll / ggml*.dll 来自 whisper.cpp
+  官方 Windows 预编译 release 包（whisper-bin-x64.zip，自报版本 1.9.5）。该 zip
+  只含二进制，不带 LICENSE 文件，因此许可正文按上游仓库根目录的 LICENSE 逐字收录
+  于此，以满足 MIT「分发副本须同时包含版权声明与许可声明」的要求。
+
+  上游项目：https://github.com/ggerganov/whisper.cpp （运行时库 ggml：
+  https://github.com/ggml-org/ggml ）
+
+---- whisper.cpp（上游仓库根目录 LICENSE，逐字） ----
+
+MIT LICENSE
+
+Copyright (c) 2022 OpenAI
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---- ggml（随 whisper.cpp 一并构建的运行时 DLL，同为 MIT） ----
+
+MIT License
+
+Copyright (c) 2018-2024 Georg Gerganov, ggml.org contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+适用范围
+  本文件只覆盖随包分发的 whisper.cpp / ggml 二进制。Whisper 模型权重（ggml-*.bin）
+  不由 TopicCut 分发，需用户自行获取，其许可条件以模型来源为准。

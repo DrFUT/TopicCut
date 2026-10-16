@@ -23,8 +23,16 @@ FFmpeg 部分继续受 GPL-3 约束**；不得把安装包内所有组件声称�
   2. 本包所用构建对应的 FFmpeg 源码提交点（来自上游构建元数据）：
      https://github.com/FFmpeg/FFmpeg/commit/e38092ef93
   3. FFmpeg 项目源码主仓库：https://git.ffmpeg.org/ffmpeg.html
-  4. 若上述公开途径不可用，可通过 TopicCut 项目公开的联系渠道索取，
+  4. 若上述公开途径不可用，请通过本仓库的公开渠道索取：
+     https://github.com/DrFUT/TopicCut/issues （新开一个 issue 注明需要 FFmpeg 对应源码）。
      我们承诺在三年内应请求以物理介质成本价提供完整机器可读源码。
+
+本包内该二进制的识别信息（用于与上述源码对应）：
+
+  文件：resources/runtime/ffmpeg/ffmpeg.exe
+  版本串：ffmpeg version 6.1.1-essentials_build-www.gyan.dev
+  大小：82,797,568 B
+  SHA-256：04e1307997530f9cf2fe35cba2ca7e8875ca91da02f89d6c7243df819c94ad00
 
 三、未随包分发的内容
 
